@@ -5,6 +5,7 @@ import Card from "./card";
 const data = productsdb;
 function Products() {
   const [productsData, setProductsData] = useState(data);
+  const [brand, setBrand] = useState("Levis");
 
   useEffect(() => {});
 
@@ -18,10 +19,35 @@ function Products() {
     setProductsData(newObj);
   }
 
+  function handleChange(event) {
+    const { value } = event.target;
+    setBrand(value);
+    const newArr = [...data];
+    const newData = newArr.filter((item) => item.brand === value);
+    setProductsData(newData);
+  }
+
+  function handleClear() {
+    setProductsData(data);
+  }
+
   return (
     <div className="flex">
       <div className="filters">
         <h2>Filters</h2>
+        <button onClick={handleClear}>Clear</button>
+        <h4>Size</h4>
+        <input type="checkbox" /> S
+        <input type="checkbox" /> M
+        <input type="checkbox" /> L
+        <input type="checkbox" /> XL
+        <br />
+        <h4>Brand</h4>
+        <select value={brand} onChange={handleChange}>
+          <option value="Levis">Levis</option>
+          <option value="Huetrap">Huetrap</option>
+          <option value="Roadster">Roadster</option>
+        </select>
       </div>
       <div className="products">
         <p>
